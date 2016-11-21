@@ -1,5 +1,5 @@
 echo -e "\n---- Install python pakages ----"
-sudo apt-get install python-pip python-dev build-essential libpq-dev poppler-utils antiword libldap2-dev libsasl2-dev libssl-dev git python-dateutil python-feedparser python-gdata python-ldap python-lxml python-mako python-openid python-psycopg2 python-pychart python-pydot python-pyparsing python-reportlab python-tz python-vatnumber python-vobject python-webdav python-xlwt python-yaml python-zsi python-docutils wget python-unittest2 python-mock python-jinja2 libevent-dev bzr subversion python-svn libxslt1-dev libfreetype6-dev libjpeg8-dev python-werkzeug wkhtmltopdf libjpeg-dev nginx libcups2-dev python-cups -y
+sudo apt-get install postgresql python-pip python-dev build-essential libpq-dev poppler-utils antiword libldap2-dev libsasl2-dev libssl-dev git python-dateutil python-feedparser python-gdata python-ldap python-lxml python-mako python-openid python-psycopg2 python-pychart python-pydot python-pyparsing python-reportlab python-tz python-vatnumber python-vobject python-webdav python-xlwt python-yaml python-zsi python-docutils wget python-unittest2 python-mock python-jinja2 libevent-dev libxslt1-dev libfreetype6-dev libjpeg8-dev python-werkzeug libjpeg-dev libcups2-dev python-cups -y
 
 
 echo -e "\n---- Install wkhtml and place on correct place for ODOO 8 ----"
@@ -8,12 +8,9 @@ sudo dpkg -i wkhtmltox-0.12.2.1_linux-trusty-amd64.deb
 sudo apt-get install -f -y
 
 
-echo -e "\n---- Install PostgreSQL Server ----"
-sudo apt-get install postgresql -y
-
 
 echo -e "\n---- Creating postgres user named odoo ----"
-sudo -u postgres createuser odoo80 -P -d
+sudo -u postgres createuser odoo -P -d
 
 
 echo -e "\n---- Download and install odoo----"
@@ -34,13 +31,9 @@ sed -i s/"db_user = False"/"db_user = odoo"/g odoo.conf
 sed -i s/"db_password = False"/"db_password = odoo"/g odoo.conf
 
 
-echo -e "\n---- Install Git ----"
-sudo apt-get install git -y
-
 
 echo -e "\n---- Install AerooLib ----"
 sudo apt-get install python-genshi python-cairo python-lxml libreoffice-script-provider-python libreoffice-base python-cups -y
-sudo apt-get install python-setuptools python3-pip -yf
 sudo mkdir /opt/aeroo
 cd /opt/aeroo
 sudo git clone https://github.com/aeroo/aeroolib.git
