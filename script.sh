@@ -12,10 +12,6 @@ echo -e "\n---- Install PostgreSQL Server ----"
 sudo apt-get install postgresql -y
 
 
-echo -e "\n---- PostgreSQL $PG_VERSION Settings  ----"
-sudo sed -i s/"#listen_addresses = 'localhost'"/"listen_addresses = '*'"/g /etc/postgresql/9.4/main/postgresql.conf
-
-
 echo -e "\n---- Creating postgres user named odoo ----"
 sudo -u postgres createuser odoo80 -P -d
 
@@ -30,29 +26,12 @@ echo -e "\n---- Creating odoo.conf ----"
 odoo.py -c odoo.conf -s
 
 
+echo -e "\n---- Edit generated file odoo.conf ---"
 
-
-Editamos el archivo generado odoo.conf y ajustamos
-
-
-admin_passwd = admin
 sed -i s/"db_host = False"/"db_host = localhost"/g odoo.conf
 sed -i s/"db_port = False"/"db_port = 5432"/g odoo.conf
 sed -i s/"db_user = False"/"db_user = odoo"/g odoo.conf
 sed -i s/"db_password = False"/"db_password = odoo"/g odoo.conf
-
-
-
-
-
-
-addons_path = /usr/local/lib/python2.7/dist-packages/odoo-8.0-py2.7.egg/openerp/addons,
-/home/user/odoo/80/sources/aeroo_reports,
-/home/user/odoo/80/sources/odoo-addons,
-/home/user/odoo/80/sources/odoo-argentina,
-/home/user/odoo/80/sources/server-tools,
-/home/user/odoo/80/sources/web, 
-/home/user/odoo/80/server/addons
 
 
 echo -e "\n---- Install Git ----"
@@ -126,15 +105,11 @@ sudo service aeroo-docs restart
 # If you encounter and error "Unable to lock on the pidfile while trying #16 just restart the service (sudo service aeroo-docs restart).
 
 
-Instalamos algunos paquetes pip que tipicamente son necesarios
-
-
+echo -e "\n---- Instalamos algunos paquetes pip que tipicamente son necesarios ---"
 pip install genshi==0.6.1 BeautifulSoup geopy==0.95.1 odfpy werkzeug==0.8.3 http pyPdf xlrd
 
 
-Creamos una carpeta para otros repositoriso, descargamos los repositorios propuestos
-
-
+echo -e "\n---- Creamos una carpeta para otros repositoriso, descargamos los repositorios propuestos ---"
 mkdir sources
 cd sources
 git clone https://github.com/ingadhoc/odoo-argentina
@@ -142,11 +117,16 @@ git clone https://github.com/ingadhoc/odoo-addons
 git clone https://github.com/aeroo/aeroo_reports
 git clone https://github.com/oca/server-tools
 git clone https://github.com/oca/web
-cd ..
 
 
 # Agregamos los paths correspondientes en el archivo odoo.conf
+#addons_path = /usr/local/lib/python2.7/dist-packages/odoo-8.0-py2.7.egg/openerp/addons,
+#/home/user/odoo/80/sources/aeroo_reports,
+#/home/user/odoo/80/sources/odoo-addons,
+#/home/user/odoo/80/sources/odoo-argentina,
+#/home/user/odoo/80/sources/server-tools,
+#/home/user/odoo/80/sources/web, 
+#/home/user/odoo/80/server/addons
+
 # Ahora estamos listos para utilizar nuestro odoo que debería levantar corriendo el comando
-
-
-odoo.py -c odoo.conf
+#odoo.py -c odoo.conf
