@@ -1,5 +1,8 @@
+echo -e "\n---- Update repository ----"
+sudo apt-get update -y
+
 echo -e "\n---- Install python pakages ----"
-sudo apt-get install postgresql python-pip python-dev build-essential libpq-dev poppler-utils antiword libldap2-dev libsasl2-dev libssl-dev git python-dateutil python-feedparser python-gdata python-ldap python-lxml python-mako python-openid python-psycopg2 python-pychart python-pydot python-pyparsing python-reportlab python-tz python-vatnumber python-vobject python-webdav python-xlwt python-yaml python-zsi python-docutils wget python-unittest2 python-mock python-jinja2 libevent-dev libxslt1-dev libfreetype6-dev libjpeg8-dev python-werkzeug libjpeg-dev libcups2-dev python-cups -y
+sudo apt-get install postgresql python-decorator python-passlib python-babel python-pip python-dev python-cairo python-genshi build-essential libpq-dev poppler-utils antiword libldap2-dev libsasl2-dev libssl-dev git python-dateutil python-feedparser python-gdata python-ldap python-lxml python-mako python-openid python-psycopg2 python-pychart python-pydot python-pyparsing python-reportlab python-tz python-vatnumber python-vobject python-webdav python-xlwt python-yaml python-zsi python-docutils wget python-unittest2 python-mock python-jinja2 libevent-dev libxslt1-dev libfreetype6-dev libjpeg8-dev python-werkzeug libjpeg-dev libcups2-dev python-cups -y
 
 
 echo -e "\n---- Install wkhtml and place on correct place for ODOO 8 ----"
@@ -33,7 +36,7 @@ sed -i s/"db_password = False"/"db_password = odoo"/g odoo.conf
 
 
 echo -e "\n---- Install AerooLib ----"
-sudo apt-get install python-genshi python-cairo python-lxml libreoffice-script-provider-python libreoffice-base python-cups -y
+sudo apt-get install libreoffice-script-provider-python libreoffice-base -y
 sudo mkdir /opt/aeroo
 cd /opt/aeroo
 sudo git clone https://github.com/aeroo/aeroolib.git
