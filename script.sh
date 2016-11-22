@@ -1,6 +1,7 @@
 echo -e "\n---- Update repository ----"
 sudo apt-get update -y
 
+
 echo -e "\n---- Install python pakages ----"
 sudo apt-get install postgresql python-decorator python-passlib python-babel python-pip python-dev python-cairo python-genshi build-essential libpq-dev poppler-utils antiword libldap2-dev libsasl2-dev libssl-dev git python-dateutil python-feedparser python-gdata python-ldap python-lxml python-mako python-openid python-psycopg2 python-pychart python-pydot python-pyparsing python-reportlab python-tz python-vatnumber python-vobject python-webdav python-xlwt python-yaml python-zsi python-docutils wget python-unittest2 python-mock python-jinja2 libevent-dev libxslt1-dev libfreetype6-dev libjpeg8-dev python-werkzeug libjpeg-dev libcups2-dev python-cups -y
 
@@ -9,7 +10,6 @@ echo -e "\n---- Install wkhtml and place on correct place for ODOO 8 ----"
 sudo wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb
 sudo dpkg -i wkhtmltox-0.12.2.1_linux-trusty-amd64.deb
 sudo apt-get install -f -y
-
 
 
 echo -e "\n---- Creating postgres user named odoo ----"
@@ -30,7 +30,7 @@ echo -e "\n---- Edit generated file odoo.conf ---"
 
 sed -i s/"db_host = False"/"db_host = localhost"/g odoo.conf
 sed -i s/"db_port = False"/"db_port = 5432"/g odoo.conf
-sed -i s/"db_user = False"/"db_user = odoo"/g odoo.conf
+sed -i s/"db_user = $USER"/"db_user = odoo"/g odoo.conf
 sed -i s/"db_password = False"/"db_password = odoo"/g odoo.conf
 
 
@@ -115,14 +115,9 @@ git clone https://github.com/oca/server-tools
 git clone https://github.com/oca/web
 
 
-# Agregamos los paths correspondientes en el archivo odoo.conf
-#addons_path = /usr/local/lib/python2.7/dist-packages/odoo-8.0-py2.7.egg/openerp/addons,
-#/home/user/odoo/80/sources/aeroo_reports,
-#/home/user/odoo/80/sources/odoo-addons,
-#/home/user/odoo/80/sources/odoo-argentina,
-#/home/user/odoo/80/sources/server-tools,
-#/home/user/odoo/80/sources/web, 
-#/home/user/odoo/80/server/addons
+echo -e "\n---- Agregamos los paths correspondientes en el archivo odoo.conf ---"
+sed -i s/"addons_path = /home/$USER/server/openerp/addons,/home/user/server/addons"/"addons_path = /usr/local/lib/python2.7/dist-packages/odoo-8.0-py2.7.egg/openerp/addons,/home/$USER/sources/aeroo_reports,/home/$USER/sources/odoo-addons,/home/$USER/sources/odoo-argentina,/home/$USER/sources/server-tools,/home/$USER/sources/web,/home/$USER/server/addons
+"/g odoo.conf
 
 # Ahora estamos listos para utilizar nuestro odoo que debería levantar corriendo el comando
 #odoo.py -c odoo.conf
