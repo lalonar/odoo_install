@@ -19,7 +19,7 @@ sudo -u postgres createuser odoo -P -d
 echo -e "\n---- Download and install odoo----"
 git clone -b 8.0 https://github.com/odoo/odoo.git server
 cd server
-python setup.py install
+sudo python setup.py install
 
 
 echo -e "\n---- Creating odoo.conf ----"
