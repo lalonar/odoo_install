@@ -50,7 +50,7 @@ git clone https://github.com/aeroo/aeroo_reports
 git clone https://github.com/oca/server-tools
 git clone https://github.com/oca/web
 
-
+cd ..
 echo -e "\n---- Agregamos los paths correspondientes en el archivo odoo.conf ---"
 sed -i s#"addons_path = /home/$USER/server/openerp/addons,/home/$USER/server/addons"#"addons_path = /usr/local/lib/python2.7/dist-packages/odoo-8.0-py2.7.egg/openerp/addons,/home/$USER/sources/aeroo_reports,/home/$USER/sources/odoo-addons,/home/$USER/sources/odoo-argentina,/home/$USER/sources/server-tools,/home/$USER/sources/web,/home/$USER/server/addons"# odoo.conf
 
