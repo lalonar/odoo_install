@@ -23,7 +23,7 @@ sudo python setup.py install
 
 
 echo -e "\n---- Creating odoo.conf ----"
-odoo.py -c odoo.conf -s
+./odoo.py -c odoo.conf -s
 
 
 echo -e "\n---- Edit generated file odoo.conf ---"
