@@ -7,7 +7,7 @@ sudo apt-get install postgresql python-decorator python-passlib python-babel pyt
 
 
 echo -e "\n---- Install wkhtml and place on correct place for ODOO 8 ----"
-sudo wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb
+wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-trusty-amd64.deb
 sudo dpkg -i wkhtmltox-0.12.2.1_linux-trusty-amd64.deb
 sudo apt-get install -f -y
 
@@ -34,6 +34,25 @@ sed -i s/"db_user = $USER"/"db_user = odoo"/g odoo.conf
 sed -i s/"db_password = False"/"db_password = odoo"/g odoo.conf
 
 
+# If you encounter and error "Unable to lock on the pidfile while trying #16 just restart the service (sudo service aeroo-docs restart).
+
+
+echo -e "\n---- Instalamos algunos paquetes pip que tipicamente son necesarios ---"
+pip install genshi==0.6.1 BeautifulSoup geopy==0.95.1 odfpy werkzeug==0.8.3 http pyPdf xlrd
+
+
+echo -e "\n---- Creamos una carpeta para otros repositoriso, descargamos los repositorios propuestos ---"
+mkdir sources
+cd sources
+git clone https://github.com/ingadhoc/odoo-argentina
+git clone https://github.com/ingadhoc/odoo-addons
+git clone https://github.com/aeroo/aeroo_reports
+git clone https://github.com/oca/server-tools
+git clone https://github.com/oca/web
+
+
+echo -e "\n---- Agregamos los paths correspondientes en el archivo odoo.conf ---"
+sed -i s#"addons_path = /home/$USER/server/openerp/addons,/home/$USER/server/addons"#"addons_path = /usr/local/lib/python2.7/dist-packages/odoo-8.0-py2.7.egg/openerp/addons,/home/$USER/sources/aeroo_reports,/home/$USER/sources/odoo-addons,/home/$USER/sources/odoo-argentina,/home/$USER/sources/server-tools,/home/$USER/sources/web,/home/$USER/server/addons"# odoo.conf
 
 echo -e "\n---- Install AerooLib ----"
 sudo apt-get install libreoffice-script-provider-python libreoffice-base -y
@@ -96,27 +115,6 @@ sudo python3 /opt/aeroo/aeroo_docs/aeroo-docs start -c /etc/aeroo-docs.conf
 sudo ln -s /opt/aeroo/aeroo_docs/aeroo-docs /etc/init.d/aeroo-docs
 sudo update-rc.d aeroo-docs defaults
 sudo service aeroo-docs restart
-
-
-# If you encounter and error "Unable to lock on the pidfile while trying #16 just restart the service (sudo service aeroo-docs restart).
-
-
-echo -e "\n---- Instalamos algunos paquetes pip que tipicamente son necesarios ---"
-pip install genshi==0.6.1 BeautifulSoup geopy==0.95.1 odfpy werkzeug==0.8.3 http pyPdf xlrd
-
-
-echo -e "\n---- Creamos una carpeta para otros repositoriso, descargamos los repositorios propuestos ---"
-mkdir sources
-cd sources
-git clone https://github.com/ingadhoc/odoo-argentina
-git clone https://github.com/ingadhoc/odoo-addons
-git clone https://github.com/aeroo/aeroo_reports
-git clone https://github.com/oca/server-tools
-git clone https://github.com/oca/web
-
-
-echo -e "\n---- Agregamos los paths correspondientes en el archivo odoo.conf ---"
-sed -i s#addons_path = /home/$USER/server/openerp/addons,/home/$USER/server/addons#addons_path = /usr/local/lib/python2.7/dist-packages/odoo-8.0-py2.7.egg/openerp/addons,/home/$USER/sources/aeroo_reports,/home/$USER/sources/odoo-addons,/home/$USER/sources/odoo-argentina,/home/$USER/sources/server-tools,/home/$USER/sources/web,/home/$USER/server/addons# odoo.conf
 
 # Ahora estamos listos para utilizar nuestro odoo que debería levantar corriendo el comando
 #odoo.py -c odoo.conf
