@@ -38,7 +38,7 @@ sed -i s/"db_password = False"/"db_password = odoo"/g odoo.conf
 
 
 echo -e "\n---- Instalamos algunos paquetes pip que tipicamente son necesarios ---"
-pip install genshi==0.6.1 BeautifulSoup geopy==0.95.1 odfpy werkzeug==0.8.3 http pyPdf xlrd
+pip install BeautifulSoup geopy==0.95.1 odfpy http pyPdf xlrd
 
 
 echo -e "\n---- Creamos una carpeta para otros repositoriso, descargamos los repositorios propuestos ---"
@@ -52,7 +52,7 @@ git clone https://github.com/oca/web
 
 cd ..
 echo -e "\n---- Agregamos los paths correspondientes en el archivo odoo.conf ---"
-sed -i s#"addons_path = /home/$USER/server/openerp/addons,/home/$USER/server/addons"#"addons_path = /usr/local/lib/python2.7/dist-packages/odoo-8.0-py2.7.egg/openerp/addons,/home/$USER/sources/aeroo_reports,/home/$USER/sources/odoo-addons,/home/$USER/sources/odoo-argentina,/home/$USER/sources/server-tools,/home/$USER/sources/web,/home/$USER/server/addons"# odoo.conf
+sed -i s#"addons_path = /home/$USER/server/openerp/addons,/home/$USER/server/addons"#"addons_path = /usr/local/lib/python2.7/dist-packages/odoo-8.0-py2.7.egg/openerp/addons,/home/$USER/server/sources/aeroo_reports,/home/$USER/server/sources/odoo-addons,/home/$USER/server/sources/odoo-argentina,/home/$USER/server/sources/server-tools,/home/$USER/server/sources/web,/home/$USER/server/addons"# odoo.conf
 
 echo -e "\n---- Install AerooLib ----"
 sudo apt-get install libreoffice-script-provider-python libreoffice-base -y
